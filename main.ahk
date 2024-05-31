@@ -14,11 +14,8 @@ SetMouseDelay -1
 
 global APPLICATION_NAME := "Ghost Recon® Wildlands"
 
-
-
 ; the backups will be in a sub directory(named saves) of the location of the script
 global BackupSaveFolder := Format("{1}\Saves\", A_ScriptDir)
-
 global LastSave := Format("{1}LastSave", BackupSaveFolder)
 
 
@@ -30,10 +27,6 @@ global LastSave := Format("{1}LastSave", BackupSaveFolder)
 
 
 FindDirectories(){
-
-  global ubisoft_id := "9a2dd866-f617-484b-a24c-19aa5c956280"
-  global ubisoft_folder := Format("{1}Ubisoft\Ubisoft Game Launcher\savegames\*",EnvGet("ProgramFiles(x86)")) ;
-
   ; find the save game folder
   ; global GameSaveFolder := "C:\Program Files (x86)\Ubisoft\Ubisoft Game Launcher\savegames\9a2dd866-f617-484b-a24c-19aa5c956280\1771\"
   global ubisoft_id := "9a2dd866-f617-484b-a24c-19aa5c956280" ;hardcoded for debuging purpose
@@ -41,25 +34,18 @@ FindDirectories(){
   ;ubisoft folder
   global ubisoft_folder := Format("{1}Ubisoft\Ubisoft Game Launcher\savegames\",EnvGet("ProgramFiles(x86)")) ;
   
-  ;MsgBox(BackupSaveFolder)
-  MsgBox("ubisoft_folder : " ubisoft_folder)
-
-
   Loop Files ubisoft_folder, "D" {
     Msgbox("A_LoopFileName : " A_LoopFileName)
   }
-  global GameSaveFolder := Format("{1}Ubisoft\Ubisoft Game Launcher\savegames\{2}",EnvGet("ProgramFiles(x86)"), ubisoft_id)
 
-  MsgBox(" BackupSaveFolder : " BackupSaveFolder "`n`n GameSaveFolder :  " GameSaveFolder)
+  global GameSaveFolder := Format("{1}\Ubisoft\Ubisoft Game Launcher\savegames\{2}\1771\",EnvGet("ProgramFiles(x86)"), ubisoft_id)
+
+  ToolTip( Format("Saved performed : {1}`n`nGameSaveFolder : {2}", BackupSaveFolder,GameSaveFolder) , 0, 0)
+  SetTimer () => ToolTip(), -5000
 
   ;FileExist
   global LastSave := Format("{1}LastSave", BackupSaveFolder)
 
-
-}
-
-user_select_dir(){
-   := DirSelect()
 }
 
 
@@ -85,12 +71,17 @@ SaveGhostMode(){
   DatedSave:= Format("{1}Save_{2}", BackupSaveFolder, A_NOW)
 
   ; leave time for the deletion to complete
-  DirDelete(LastSave,1)
-  sleep(1000)
+  if  InStr( FileExist(LastSave), "D"){
+    DirDelete(LastSave,1)
+    sleep(1000)
+  }
   
   ; create the dated copy and the last save folder  (nice to have backup) and need to override.
   DirCopy(GameSaveFolder, LastSave,0)
   DirCopy(GameSaveFolder,DatedSave,0)
+    
+  ToolTip( Format("Save performed : {}", DatedSave) , 0, 0)
+  SetTimer () => ToolTip(), -5000
   
 }
 

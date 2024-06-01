@@ -67,6 +67,18 @@ check_app_window(){
   return True 
 }
 
+; handling of the case where the dir don't exist and avoid a exception being thrown
+DeleteDir(dirPath){
+  if  InStr( FileExist(dirPath), "D"){
+    DirDelete(dirPath,1)
+    sleep(1000)
+  }else{
+    ToolTipMsg(format("The following directory did not exist no deletion was performed : `n{1}",dirPath),0,0,5000)
+    sleep 5000
+  }
+}
+
+
 ; perform a backup of the gamesaves folder
 SaveGhostMode(){
 

@@ -109,6 +109,22 @@ ImportLastSave(){
 
   ToolTipMsg( Format("restore performed.") , 0, 0, 5000)
 }
+
+
+
+; Perform  a backup of the gamesaves folder from the selected save that the user selected
+ImportSaveDir(){
+    
+  DeleteDir(GameSaveFolder)
+
+  ; ask the player which folder to restore
+  selectedBackup := DirSelect(BackupSaveFolder)
+
+  ; recreating from the backup de files to the saves game folder
+  DirCopy(selectedBackup,GameSaveFolder,1)
+
+  ToolTipMsg( Format("restore  of {1} performed.", selectedBackup) , 0, 0, 5000)
+
 }
 
 /*
@@ -129,6 +145,10 @@ Numpad8::{
 
 Numpad7::{
   ImportLastSave()
+}
+
+Numpad9::{
+  ImportSaveDir()
 }
 
 ;F5 to Reload the script.

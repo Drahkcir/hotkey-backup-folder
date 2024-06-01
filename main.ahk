@@ -83,20 +83,15 @@ DeleteDir(dirPath){
 SaveGhostMode(){
 
   ; creating the folder name for dated backup
-  DatedSave:= Format("{1}Save_{2}", BackupSaveFolder, A_NOW)
+  DatedSave := Format("{1}Save_{2}", BackupSaveFolder, A_NOW)
 
-  ; leave time for the deletion to complete
-  if  InStr( FileExist(LastSave), "D"){
-    DirDelete(LastSave,1)
-    sleep(1000)
-  }
+  DeleteDir(LastSave)
   
   ; create the dated copy and the last save folder  (nice to have backup) and need to override.
   DirCopy(GameSaveFolder, LastSave,0)
   DirCopy(GameSaveFolder,DatedSave,0)
     
-  ToolTip( Format("Save performed : {}", DatedSave) , 0, 0)
-  SetTimer () => ToolTip(), -5000
+  ToolTipMsg( Format("Save performed : {}", DatedSave) , 0, 0, 5000)
   
 }
 
@@ -104,18 +99,23 @@ SaveGhostMode(){
 ImportLastSave(){
 
   ; remove the save currently used
-  DirDelete(GameSaveFolder,1)
+  DeleteDir(GameSaveFolder)
   
-  ; wait a little to ensure the delete completed
-  sleep 1000
+  ; ask the player which folder to restore
+  selectedBackup := DirSelect(BackupSaveFolder)
 
   ; recreating from the backup de files to the saves game folder
   DirCopy(LastSave,GameSaveFolder,1)
+
+  ToolTipMsg( Format("restore performed.") , 0, 0, 5000)
+}
 }
 
 /*
-  ======================================Events Handling===================================================
+  ======================================Events Handling/Main execution===================================================
 */
+FindDirectories()
+
 
 Numpad8::{
   ; check the application is fonctionning to avoid doing save when the app is no longer running  

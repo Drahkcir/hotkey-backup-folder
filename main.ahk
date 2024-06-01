@@ -9,45 +9,50 @@ SetKeyDelay -1
 SetMouseDelay -1
 
 /*
-  ======================================Constants===================================================
+  ======================================Constants Declaration===================================================
+*/
+global APPLICATION_NAME := "Ghost Recon® Wildlands"
+global INI_FILENAME := ".\variable.ini"
+
+
+global BackupSaveFolder
+global LastSave
+
+
+/*
+  ======================================Initialization===================================================
 */
 
-global APPLICATION_NAME := "Ghost Recon® Wildlands"
+ReadIni(){
+  
+  ; path where the saves will be kept (default will be the ./Saves where the script is located )
+  BackupSubDir := IniRead(INI_FILENAME, "Default", "SaveSubDirectory" , "Saves/")
+  
+  
+  ; ubisoft id of the user (needed to get to the save games)
+  ubisoft_id := IniRead(INI_FILENAME, "Default", "Ubisoft_id")
+  
+  ; optionnal configuration options to handle custom installs directories for ubisoft
+  ubisoft_savegame_path := IniRead(INI_FILENAME, "Default", "Ubisoft_savegame_path","Ubisoft\Ubisoft Game Launcher\savegames\")
+  ubisoft_path := IniRead(INI_FILENAME, "Default", "Ubisoft_savegame_path",Format("{1}\", EnvGet("ProgramFiles(x86)")))
+  ubisoft_id := IniRead(INI_FILENAME, "Default", "Ubisoft_id")
+  
+  ;global variable will be updated
+  global GameSaveFolder := Format("{1}{2}{3}\1771\", ubisoft_path,ubisoft_savegame_path,ubisoft_id)
+  global BackupSaveFolder := Format("{1}\{2}", A_ScriptDir,BackupSubDir)
+  global LastSave := Format("{1}\LastSave", BackupSaveFolder)
 
-; the backups will be in a sub directory(named saves) of the location of the script
-global BackupSaveFolder := Format("{1}\Saves\", A_ScriptDir)
-global LastSave := Format("{1}LastSave", BackupSaveFolder)
+  ;feedbock initialisationr to check that everything is right
+  ToolTipMsg( Format("BackupSaveFolder : {1}`n`nGameSaveFolder : {2}", BackupSaveFolder, GameSaveFolder), 0, 0, 5000)
 
+}
+
+ReadIni()
 
 
 /*
   ======================================Function declarations===================================================
 */
-
-
-
-FindDirectories(){
-  ; find the save game folder
-  ; global GameSaveFolder := "C:\Program Files (x86)\Ubisoft\Ubisoft Game Launcher\savegames\9a2dd866-f617-484b-a24c-19aa5c956280\1771\"
-  global ubisoft_id := "9a2dd866-f617-484b-a24c-19aa5c956280" ;hardcoded for debuging purpose
-
-  ;ubisoft folder
-  global ubisoft_folder := Format("{1}Ubisoft\Ubisoft Game Launcher\savegames\",EnvGet("ProgramFiles(x86)")) ;
-  
-  Loop Files ubisoft_folder, "D" {
-    Msgbox("A_LoopFileName : " A_LoopFileName)
-  }
-
-  global GameSaveFolder := Format("{1}\Ubisoft\Ubisoft Game Launcher\savegames\{2}\1771\",EnvGet("ProgramFiles(x86)"), ubisoft_id)
-
-  ToolTip( Format("Saved performed : {1}`n`nGameSaveFolder : {2}", BackupSaveFolder,GameSaveFolder) , 0, 0)
-  SetTimer () => ToolTip(), -5000
-
-  ;FileExist
-  global LastSave := Format("{1}LastSave", BackupSaveFolder)
-
-}
-
 
 ToolTipMsg(msg,x,y,duration){
   ToolTip( msg, x, y )
@@ -101,9 +106,6 @@ ImportLastSave(){
   ; remove the save currently used
   DeleteDir(GameSaveFolder)
   
-  ; ask the player which folder to restore
-  selectedBackup := DirSelect(BackupSaveFolder)
-
   ; recreating from the backup de files to the saves game folder
   DirCopy(LastSave,GameSaveFolder,1)
 
@@ -130,8 +132,6 @@ ImportSaveDir(){
 /*
   ======================================Events Handling/Main execution===================================================
 */
-FindDirectories()
-
 
 Numpad8::{
   ; check the application is fonctionning to avoid doing save when the app is no longer running  
@@ -152,7 +152,7 @@ Numpad9::{
 }
 
 ;F5 to Reload the script.
-F5::{
+F6::{
     Reload
     Return
 }

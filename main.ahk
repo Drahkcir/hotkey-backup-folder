@@ -49,7 +49,10 @@ FindDirectories(){
 }
 
 
-FindDirectories()
+ToolTipMsg(msg,x,y,duration){
+  ToolTip( msg, x, y )
+  SetTimer () => ToolTip(), -duration  
+}
 
 
 /*

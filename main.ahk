@@ -44,7 +44,6 @@ ReadIni(){
 
   ;feedbock initialisationr to check that everything is right
   ToolTipMsg( Format("BackupSaveFolder : {1}`n`nGameSaveFolder : {2}", BackupSaveFolder, GameSaveFolder), 0, 0, 5000)
-
 }
 
 ReadIni()
@@ -97,7 +96,6 @@ SaveGhostMode(){
   DirCopy(GameSaveFolder,DatedSave,0)
     
   ToolTipMsg( Format("Save performed : {}", DatedSave) , 0, 0, 5000)
-  
 }
 
 ; perform a backup of the gamesaves folder from the last save that was done
@@ -105,7 +103,7 @@ ImportLastSave(){
 
   ; remove the save currently used
   DeleteDir(GameSaveFolder)
-  
+
   ; recreating from the backup de files to the saves game folder
   DirCopy(LastSave,GameSaveFolder,1)
 
@@ -126,7 +124,6 @@ ImportSaveDir(){
   DirCopy(selectedBackup,GameSaveFolder,1)
 
   ToolTipMsg( Format("restore  of {1} performed.", selectedBackup) , 0, 0, 5000)
-
 }
 
 /*

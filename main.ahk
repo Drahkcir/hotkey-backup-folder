@@ -64,7 +64,7 @@ ToolTipMsg(msg,x,y,duration){
 */
 check_app_window(){
   if not WinExist(APPLICATION_NAME){
-      MsgBox APPLICATION_NAME  " not running"      
+      ;MsgBox APPLICATION_NAME  " not running"      
       return False
   }
   WinActivate
@@ -123,7 +123,6 @@ ImportSaveDir(){
   ; recreating from the backup de files to the saves game folder
   DirCopy(selectedBackup,GameSaveFolder,1)
 
-  ToolTipMsg( Format("restore  of {1} performed.", selectedBackup) , 0, 0, 5000)
 }
 
 /*
@@ -135,7 +134,7 @@ Numpad8::{
   result := check_app_window()
   SaveGhostMode()
   if not result {
-    MsgBox("Save performed. Quitting the AutoHotKey script as the application is not runinng.")
+    MsgBox( APPLICATION_NAME " is not running" "`n" "Save performed. Quitting the AutoHotKey script ")
     ExitApp
   }
 }

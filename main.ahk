@@ -82,7 +82,6 @@ DeleteDir(dirPath){
   }
 }
 
-
 ; perform a backup of the gamesaves folder
 SaveGhostMode(){
 
@@ -110,19 +109,18 @@ ImportLastSave(){
   ToolTipMsg( Format("restore performed.") , 0, 0, 5000)
 }
 
-
-
 ; Perform  a backup of the gamesaves folder from the selected save that the user selected
 ImportSaveDir(){
     
-  DeleteDir(GameSaveFolder)
-
   ; ask the player which folder to restore
   selectedBackup := DirSelect(BackupSaveFolder)
-
-  ; recreating from the backup de files to the saves game folder
-  DirCopy(selectedBackup,GameSaveFolder,1)
-
+  if selectedBackup {
+    DeleteDir(GameSaveFolder)
+    ; recreating from the backup de files to the saves game folder
+    DirCopy(selectedBackup,GameSaveFolder,1)
+    ToolTipMsg(Format("restore of {1} performed.", selectedBackup) , 0, 0, 5000)
+  }
+  
 }
 
 /*

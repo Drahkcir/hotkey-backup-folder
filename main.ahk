@@ -34,7 +34,7 @@ ReadIni(){
   
   ; optionnal configuration options to handle custom installs directories for ubisoft
   ubisoft_savegame_path := IniRead(INI_FILENAME, "Default", "Ubisoft_savegame_path","Ubisoft\Ubisoft Game Launcher\savegames\")
-  ubisoft_path := IniRead(INI_FILENAME, "Default", "Ubisoft_savegame_path",Format("{1}\", EnvGet("ProgramFiles(x86)")))
+  ubisoft_path := IniRead(INI_FILENAME, "Default", "Ubisoft_path",Format("{1}\", EnvGet("ProgramFiles(x86)")))
   ubisoft_id := IniRead(INI_FILENAME, "Default", "Ubisoft_id")
   
   ;global variable will be updated

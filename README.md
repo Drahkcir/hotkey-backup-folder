@@ -1,6 +1,7 @@
 # Description 
 
-This small script allow a user to perform the save of the folder containing the saves of the Ghost Recon Wildlands games and allow performing restoration by a single keystroke
+This small script allow a user to perform the save of the folder configured in the ini file and allow performing restoration by a single keystroke
+
 ---
 # prerequisite 
 - [autohotkeyV2](https://www.autohotkey.com) installed 

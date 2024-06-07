@@ -63,11 +63,12 @@ ToolTipMsg(msg,x,y,duration){
   checking that the application is currently running.
 */
 check_app_window(){
-  if not WinExist(APPLICATION_NAME){
+  if Application_Name {
+    if not WinExist(APPLICATION_NAME){
       ;MsgBox APPLICATION_NAME  " not running"      
       return False
-  }
-  WinActivate
+    }
+    WinActivate
   }
   return True 
 }
@@ -88,6 +89,7 @@ DeleteDir(dirPath){
 /*
   perform a backup of the gamesaves folder
 */ 
+SaveTargetFolder(){
 
   ; creating the folder name for dated backup
   DatedSave := Format("{1}Save_{2}", BackupSaveFolder, A_NOW)
@@ -136,9 +138,9 @@ ImportSaveDir(){
 */
 
 Numpad8::{
-  ; check the application is fonctionning to avoid doing save when the app is no longer running  
+  ; check the application is fonctionning to avoid doing several saves when the app is no longer running  
   result := check_app_window()
-  SaveGhostMode()
+  SaveTargetFolder()
   if not result {
     MsgBox( APPLICATION_NAME " is not running" "`n" "Save performed. Quitting the AutoHotKey script ")
     ExitApp

@@ -26,9 +26,7 @@ global LastSave
 ReadIni(){
   
   ; path where the saves will be kept (default will be the ./Saves where the script is located )
-  BackupDir := IniRead(INI_FILENAME, "Default", "SaveDirectory" , A_ScriptDir )
-  BackupSubDir := IniRead(INI_FILENAME, "Default", "SaveSubDirectory" , "Saves/")
-
+  save_folder := IniRead(INI_FILENAME, "Default", "SaveDirectory" , Format("{1}\{2}", A_ScriptDir , "Save\") ) 
   
   ; ubisoft id of the user (needed to get to the save games of right user)
   ubisoft_id := IniRead(INI_FILENAME, "Default", "Ubisoft_id")
@@ -38,11 +36,9 @@ ReadIni(){
   ubisoft_path := IniRead(INI_FILENAME, "Default", "Ubisoft_path",Format("{1}\", EnvGet("ProgramFiles(x86)")))
   ubisoft_id := IniRead(INI_FILENAME, "Default", "Ubisoft_id")
 
-
-
   ;global variable will be updated
+  global BackupSaveFolder := save_folder
   global GameSaveFolder := Format("{1}{2}{3}\1771\", ubisoft_path,ubisoft_savegame_path,ubisoft_id)
-  global BackupSaveFolder := Format("{1}\{2}", BackupDir,BackupSubDir)
   global LastSave := Format("{1}\LastSave", BackupSaveFolder)
 
   ;feedbock initialisationr to check that everything is right

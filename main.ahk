@@ -35,6 +35,8 @@ ReadIni(){
     MsgBox("save_folder_full_path is not set in the ini file" "`n" "unable to locate the folder to save")*
     ExitApp(-1)
   }
+  
+  application_name := IniRead(INI_FILENAME, "Default", "application_name", "")
 
   ;global variable will be updated
   global Application_Name := application_name

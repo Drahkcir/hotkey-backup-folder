@@ -68,6 +68,7 @@ check_app_window(){
       return False
   }
   WinActivate
+  }
   return True 
 }
 

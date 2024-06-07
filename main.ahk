@@ -26,7 +26,10 @@ global LastSave
 ReadIni(){
   
   ; path where the saves will be kept (default will be the ./Saves where the script is located )
-  save_folder := IniRead(INI_FILENAME, "Default", "SaveDirectory" , Format("{1}\{2}", A_ScriptDir , "Save\") ) 
+  save_folder := IniRead(INI_FILENAME, "Default", "SaveDirectory" , "") 
+  if not save_folder{
+    save_folder := Format("{1}\{2}", A_ScriptDir , "Save\")
+  }
   
   ; ubisoft id of the user (needed to get to the save games of right user)
   ubisoft_id := IniRead(INI_FILENAME, "Default", "Ubisoft_id")

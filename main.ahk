@@ -71,7 +71,9 @@ check_app_window(){
   return True 
 }
 
-; handling of the case where the dir don't exist and avoid a exception being thrown
+/*
+  handling of the case where the dir don't exist and avoid a exception being thrown
+*/
 DeleteDir(dirPath){
   if  InStr( FileExist(dirPath), "D"){
     DirDelete(dirPath,1)
@@ -82,8 +84,9 @@ DeleteDir(dirPath){
   }
 }
 
-; perform a backup of the gamesaves folder
-SaveGhostMode(){
+/*
+  perform a backup of the gamesaves folder
+*/ 
 
   ; creating the folder name for dated backup
   DatedSave := Format("{1}Save_{2}", BackupSaveFolder, A_NOW)
@@ -97,7 +100,9 @@ SaveGhostMode(){
   ToolTipMsg( Format("Save performed : {}", DatedSave) , 0, 0, 5000)
 }
 
-; perform a restore of the save_folder from the last save that was done
+/*
+  perform a restore of the save_folder from the last save that was done
+*/
 ImportLastSave(){
 
   ; remove the save currently used
@@ -109,7 +114,9 @@ ImportLastSave(){
   ToolTipMsg( Format("restore performed.") , 0, 0, 5000)
 }
 
-; Perform a restore of the save_folder from the selected save that the user selected
+/*
+  Perform a restore of the save_folder from the selected save that the user selected
+*/
 ImportSaveDir(){
     
   ; ask the player which folder to restore
@@ -145,13 +152,13 @@ Numpad9::{
   ImportSaveDir()
 }
 
-;F5 to Reload the script.
+;F6 to Reload the script.
 F6::{
     Reload
     Return
 }
 
-;F4 to quit the AutoHotkey. 
+;F4 to exit the AutoHotkey script. 
 F4::{
     ExitApp
 }

@@ -11,13 +11,12 @@ SetMouseDelay -1
 /*
   ======================================Constants Declaration===================================================
 */
-global APPLICATION_NAME := "Ghost Recon® Wildlands"
-global INI_FILENAME := ".\variable.ini"
+global INI_FILENAME := ".\config.ini"
 
-
+global Application_Name
 global BackupSaveFolder
+global SaveFolder
 global LastSave
-
 
 /*
   ======================================Initialization===================================================
@@ -26,26 +25,25 @@ global LastSave
 ReadIni(){
   
   ; path where the saves will be kept (default will be the ./Saves where the script is located )
-  save_folder := IniRead(INI_FILENAME, "Default", "SaveDirectory" , "") 
-  if not save_folder{
-    save_folder := Format("{1}\{2}", A_ScriptDir , "Save\")
+  backup_folder := IniRead(INI_FILENAME, "Default", "save_directory" , "") 
+  if not backup_folder{
+    backup_folder := Format("{1}\{2}", A_ScriptDir , "Saves\")
   }
-  
-  ; ubisoft id of the user (needed to get to the save games of right user)
-  ubisoft_id := IniRead(INI_FILENAME, "Default", "Ubisoft_id")
-  
-  ; optionnal configuration options
-  ubisoft_savegame_path := IniRead(INI_FILENAME, "Default", "Ubisoft_savegame_path","Ubisoft\Ubisoft Game Launcher\savegames\")
-  ubisoft_path := IniRead(INI_FILENAME, "Default", "Ubisoft_path",Format("{1}\", EnvGet("ProgramFiles(x86)")))
-  ubisoft_id := IniRead(INI_FILENAME, "Default", "Ubisoft_id")
+
+  save_folder := IniRead(INI_FILENAME, "Default", "save_folder_full_path", "")
+  if not save_folder {  
+    MsgBox("save_folder_full_path is not set in the ini file" "`n" "unable to locate the folder to save")*
+    ExitApp(-1)
+  }
 
   ;global variable will be updated
-  global BackupSaveFolder := save_folder
-  global GameSaveFolder := Format("{1}{2}{3}\1771\", ubisoft_path,ubisoft_savegame_path,ubisoft_id)
+  global Application_Name := application_name
+  global BackupSaveFolder := backup_folder
+  global SaveFolder := save_folder
   global LastSave := Format("{1}\LastSave", BackupSaveFolder)
 
   ;feedbock initialisationr to check that everything is right
-  ToolTipMsg( Format("BackupSaveFolder : {1}`n`nGameSaveFolder : {2}", BackupSaveFolder, GameSaveFolder), 0, 0, 5000)
+  ToolTipMsg( Format("BackupSaveFolder : {1}`n`nSaveFolder : {2}", BackupSaveFolder, SaveFolder), 0, 0, 5000)
 }
 
 ReadIni()
@@ -92,34 +90,34 @@ SaveGhostMode(){
 
   DeleteDir(LastSave)
   
-  ; create the dated copy and the last save folder  (nice to have backup) and need to override.
-  DirCopy(GameSaveFolder, LastSave,0)
-  DirCopy(GameSaveFolder,DatedSave,0)
+  ; create the dated copy and the lastsave folder  (nice to have backup) and need to override.
+  DirCopy(SaveFolder, LastSave,0)
+  DirCopy(SaveFolder,DatedSave,0)
     
   ToolTipMsg( Format("Save performed : {}", DatedSave) , 0, 0, 5000)
 }
 
-; perform a backup of the gamesaves folder from the last save that was done
+; perform a restore of the save_folder from the last save that was done
 ImportLastSave(){
 
   ; remove the save currently used
-  DeleteDir(GameSaveFolder)
+  DeleteDir(SaveFolder)
 
   ; recreating from the backup de files to the saves game folder
-  DirCopy(LastSave,GameSaveFolder,1)
+  DirCopy(LastSave,SaveFolder,1)
 
   ToolTipMsg( Format("restore performed.") , 0, 0, 5000)
 }
 
-; Perform  a backup of the gamesaves folder from the selected save that the user selected
+; Perform a restore of the save_folder from the selected save that the user selected
 ImportSaveDir(){
     
   ; ask the player which folder to restore
   selectedBackup := DirSelect(BackupSaveFolder)
   if selectedBackup {
-    DeleteDir(GameSaveFolder)
+    DeleteDir(SaveFolder)
     ; recreating from the backup de files to the saves game folder
-    DirCopy(selectedBackup,GameSaveFolder,1)
+    DirCopy(selectedBackup,SaveFolder,1)
     ToolTipMsg(Format("restore of {1} performed.", selectedBackup) , 0, 0, 5000)
   }
   

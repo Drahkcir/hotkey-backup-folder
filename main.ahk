@@ -87,7 +87,7 @@ DeleteDir(dirPath){
 }
 
 /*
-  perform a backup of the gamesaves folder
+  perform a backup of the configured folder
 */ 
 SaveTargetFolder(){
 

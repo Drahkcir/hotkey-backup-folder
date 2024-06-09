@@ -185,7 +185,11 @@ rotation_save(){
           Continue
         }
       }
-      MsgBox(marked_for_deletion)
+
+      for (i in marked_for_deletion){
+        DeleteDir(i)
+      }
+
     }
   }
 }

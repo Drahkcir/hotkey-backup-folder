@@ -164,6 +164,12 @@ rotation_save(){
   ======================================Events Handling/Main execution===================================================
 */
 
+
+Numpad0::{
+  rotation_save()
+}
+
+
 Numpad8::{
   ; check the application is fonctionning to avoid doing several saves when the app is no longer running  
   result := check_app_window()

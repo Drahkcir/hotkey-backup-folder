@@ -138,6 +138,11 @@ ImportSaveDir(){
 }
 
 rotation_save(){
+  if(Rotation > -1 ){
+    pattern := Format("{1}\Save_*", BackupSaveFolder)
+    Loop Files, Pattern, "D"
+      FileList .= A_LoopFileName "`n"
+
 }
 
 

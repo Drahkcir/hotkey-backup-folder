@@ -174,12 +174,13 @@ rotation_save(){
     Loop Files, Pattern, "D"
       dirs_list.push(Format("{1}\{2}",BackupSaveFolder,A_LoopFileName))
     
-    ; TODO inverting the dirs_Array
+    dirs_list := arrayRevert(dirs_list)
+    marked_for_deletion := Array()
 
-    if(dirs_Array.Length > Rotation){
-      for (i in dirs_Array){
+    if(dirs_list.Length > Rotation){
+      for (i in dirs_list){
         if(A_Index > Rotation){
-          marked_for_deletion .= i "`n"
+          marked_for_deletion.Push(i)
         } else {
           Continue
         }

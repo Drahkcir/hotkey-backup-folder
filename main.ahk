@@ -144,19 +144,20 @@ rotation_save(){
       FileList .= A_LoopFileName "`n"
 
     dirs_Array :=  StrSplit(FileList,"`n")
-    if(dirs_Array.Length > Rotation)
-
-    for (i in dirs_Array){
-      if(A_Index > Rotation){
-        marked_for_deletion .= i "`n"
-      } else {
-        Continue
-      }
-    }
-    MsgBox(marked_for_deletion)
-  }
-  
     
+    ; TODO inverting the dirs_Array
+
+    if(dirs_Array.Length > Rotation){
+      for (i in dirs_Array){
+        if(A_Index > Rotation){
+          marked_for_deletion .= i "`n"
+        } else {
+          Continue
+        }
+      }
+      MsgBox(marked_for_deletion)
+    }
+  }
 }
 
 

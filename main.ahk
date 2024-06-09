@@ -149,6 +149,19 @@ arrayRevert(arg1){
   return  inverted_array
 
 }
+
+/*
+    array to string
+*/
+array_to_str(array){
+  to_str := ""
+  for (i in array){
+    to_str .= i " "
+  }
+
+  return to_str
+}
+
 rotation_save(){
   if(Rotation > -1 ){
     pattern := Format("{1}\Save_*", BackupSaveFolder)

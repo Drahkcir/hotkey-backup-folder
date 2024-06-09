@@ -171,26 +171,24 @@ rotation_save(){
     dirs_list := Array()
     pattern := Format("{1}\Save_*", BackupSaveFolder)
 
+    ; discovering the "Save_" directories
     Loop Files, Pattern, "D"
       dirs_list.push(Format("{1}\{2}",BackupSaveFolder,A_LoopFileName))
     
+    ; invert the arays to be from last to oldest save
     dirs_list := arrayRevert(dirs_list)
-    marked_for_deletion := Array()
 
+    ; delete the older folder (after the index is superior to the rotation)
     if(dirs_list.Length > Rotation){
       for (i in dirs_list){
         if(A_Index > Rotation){
-          marked_for_deletion.Push(i)
+          DeleteDir(i)
         } else {
           Continue
         }
       }
-
-      for (i in marked_for_deletion){
-        DeleteDir(i)
-      }
-
     }
+
   }
 }
 

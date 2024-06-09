@@ -162,13 +162,17 @@ array_to_str(array){
   return to_str
 }
 
+/*
+    Prrform the remove of the saves that are over the limit of rotation
+*/
 rotation_save(){
   if(Rotation > -1 ){
+    
+    dirs_list := Array()
     pattern := Format("{1}\Save_*", BackupSaveFolder)
-    Loop Files, Pattern, "D"
-      FileList .= A_LoopFileName "`n"
 
-    dirs_Array :=  StrSplit(FileList,"`n")
+    Loop Files, Pattern, "D"
+      dirs_list.push(Format("{1}\{2}",BackupSaveFolder,A_LoopFileName))
     
     ; TODO inverting the dirs_Array
 

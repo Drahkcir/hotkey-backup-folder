@@ -105,6 +105,9 @@ SaveTargetFolder(){
   DirCopy(SaveFolder,DatedSave,0)
     
   ToolTipMsg( Format("Save performed : {}", DatedSave) , 0, 0, 5000)
+
+  rotation_save()
+  
 }
 
 /*

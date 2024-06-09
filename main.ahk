@@ -137,6 +137,18 @@ ImportSaveDir(){
   
 }
 
+/*
+    invert an array and return it
+*/
+arrayRevert(arg1){
+
+  inverted_array := Array()
+  for (i in arg1) {
+        inverted_array.InsertAt(1 , i)
+      }
+  return  inverted_array
+
+}
 rotation_save(){
   if(Rotation > -1 ){
     pattern := Format("{1}\Save_*", BackupSaveFolder)

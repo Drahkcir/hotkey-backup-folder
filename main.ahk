@@ -37,13 +37,15 @@ ReadIni(){
   }
   
   application_name := IniRead(INI_FILENAME, "Default", "application_name", "")
+  rotation :=  IniRead(INI_FILENAME, "Default", "save_rotate", -1)
+
 
   ;global variable will be updated
   global Application_Name := application_name
   global BackupSaveFolder := backup_folder
   global SaveFolder := save_folder
   global LastSave := Format("{1}\LastSave", BackupSaveFolder)
-
+  global Rotation := rotation
   ;feedbock initialisationr to check that everything is right
   ToolTipMsg( Format("BackupSaveFolder : {1}`n`nSaveFolder : {2}", BackupSaveFolder, SaveFolder), 0, 0, 5000)
 }

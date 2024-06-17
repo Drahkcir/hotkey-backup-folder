@@ -166,7 +166,7 @@ array_to_str(array){
 }
 
 /*
-    Prrform the remove of the saves that are over the limit of rotation
+    Perform the remove of the saves that are over the limit of rotation
 */
 rotation_save(){
   if(Rotation > -1 ){

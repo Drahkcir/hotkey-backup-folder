@@ -22,3 +22,4 @@ This small script allow a user to perform the save of the folder configured in t
 # ToDo
 
 - find a way to variabilize the hotkey setup to be overridable on the ini file
+- make an option to autosave on timer

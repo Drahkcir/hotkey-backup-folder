@@ -200,7 +200,8 @@ rotation_save(){
   ======================================Events Handling/Main execution===================================================
 */
 
-
+# HotKeySave1:='Numpad0'
+# %HotKeySave1%::{
 Numpad0::{
   rotation_save()
 }

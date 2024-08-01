@@ -199,9 +199,16 @@ rotation_save(){
 /*
   ======================================Events Handling/Main execution===================================================
 */
+global MyLabel
+HKS1 := "h"
+Hotkey %HKS1%, MyLabel
 
-; HotKeySave1:='Numpad0'
-; %HotKeySave1%::{
+
+MyLabel::{
+  MsgBox("You pressed " %A_ThisHotkey% )
+}
+
+
 Numpad0::{
   rotation_save()
 }

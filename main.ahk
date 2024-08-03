@@ -24,6 +24,7 @@ global LastSave
 
 ReadIni(){
   
+
   ; path where the saves will be kept (default will be the ./Saves where the script is located )
   backup_folder := IniRead(INI_FILENAME, "Default", "save_directory" , "") 
   if not backup_folder{
@@ -197,19 +198,19 @@ rotation_save(){
 
 
 /*
-  ======================================Events Handling/Main execution===================================================
+  ======================================Events Handling/hotkey mapping===================================================
 */
-global MyLabel
-HKS1 := "h"
-Hotkey %HKS1%, MyLabel
 
 
-MyLabel::{
-  MsgBox("You pressed " %A_ThisHotkey% )
+
+Hotkey HKS1, hotkeySave1 
+
+testHotKey(*)::{
+  MsgBox("You pressed " A_ThisHotkey )
 }
 
 
-Numpad0::{
+hotkeySave1(*){
   rotation_save()
 }
 

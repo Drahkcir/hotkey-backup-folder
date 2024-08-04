@@ -202,8 +202,8 @@ rotation_save(){
 */
 
 
-
-Hotkey HKS1, hotkeySave1 
+Hotkey HK_Rotation1, hotkeyRotate
+Hotkey HK_Save1, hotkeySave1 
 
 testHotKey(*)::{
   MsgBox("You pressed " A_ThisHotkey )
@@ -214,7 +214,7 @@ hotkeySave1(*){
   rotation_save()
 }
 
-
+ 
 Numpad8::{
   ; check the application is fonctionning to avoid doing several saves when the app is no longer running  
   result := check_app_window()

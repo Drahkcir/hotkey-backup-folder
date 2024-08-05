@@ -204,13 +204,14 @@ rotation_save(){
 
 Hotkey HK_Rotation1, hotkeyRotate
 Hotkey HK_Save1, hotkeySave1 
+Hotkey HK_last_backup, hotkeyLastBackup 
 
 testHotKey(*)::{
   MsgBox("You pressed " A_ThisHotkey )
 }
 
 
-hotkeySave1(*){
+hotkeyRotate(*){
   rotation_save()
 }
 

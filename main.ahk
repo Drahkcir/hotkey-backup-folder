@@ -203,7 +203,7 @@ rotation_save(){
 
 
 Hotkey HK_Rotation1, hotkeyRotate
-Hotkey HK_Save1, hotkeySave1 
+Hotkey HK_Save, hotkeySave
 Hotkey HK_last_backup, hotkeyLastBackup 
 
 testHotKey(*)::{
@@ -216,7 +216,7 @@ hotkeyRotate(*){
 }
 
  
-Numpad8::{
+hotkeySave(*){
   ; check the application is fonctionning to avoid doing several saves when the app is no longer running  
   result := check_app_window()
   SaveTargetFolder()

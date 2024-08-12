@@ -205,6 +205,8 @@ rotation_save(){
 Hotkey HK_Rotation1, hotkeyRotate
 Hotkey HK_Save, hotkeySave
 Hotkey HK_last_backup, hotkeyLastBackup 
+Hotkey HK_quickload, hotkeyQuickLoad 
+
 
 testHotKey(*)::{
   MsgBox("You pressed " A_ThisHotkey )

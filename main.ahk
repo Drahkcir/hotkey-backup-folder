@@ -47,9 +47,26 @@ ReadIni(){
   global SaveFolder := save_folder
   global LastSave := Format("{1}\LastSave", BackupSaveFolder)
   global Rotation := rotation
-  ;feedbock initialisationr to check that everything is right
+  ;feedback on initialisation to check that everything is right
   ToolTipMsg( Format("BackupSaveFolder : {1}`n`nSaveFolder : {2}", BackupSaveFolder, SaveFolder), 0, 0, 5000)
+
+  ; read hotkeys override to allow custom configs
+  ReadHotkeys() 
 }
+
+
+/*
+  read hotkeys override to allow custom configs
+*/
+ReadHotkeys(){
+
+
+  global HK_Save := IniRead(INI_FILENAME, "Default", "HK_Save", "Numpad0")
+  global HK_loadSave := IniRead(INI_FILENAME, "Default", "HK_loadSave", "Numpad2")
+  global HK_quickload := IniRead(INI_FILENAME, "Default", "HK_quickload", "Numpad5")
+  
+}
+
 
 ReadIni()
 
@@ -57,7 +74,9 @@ ReadIni()
 /*
   ======================================Function declarations===================================================
 */
-
+/*
+  small fonction to print a small message on the screen without creating a new window and avoid lossing focus
+*/
 ToolTipMsg(msg,x,y,duration){
   ToolTip( msg, x, y )
   SetTimer () => ToolTip(), -duration  
@@ -92,7 +111,7 @@ DeleteDir(dirPath){
 }
 
 /*
-  perform a backup of the configured folder
+  perform a backup of the configured folder and remove old save based on max rotation number
 */ 
 SaveTargetFolder(){
 
@@ -202,20 +221,24 @@ rotation_save(){
 */
 
 
-Hotkey HK_Rotation1, hotkeyRotate
+
 Hotkey HK_Save, hotkeySave
-Hotkey HK_last_backup, hotkeyLastBackup 
+Hotkey HK_loadSave, hotkeyLoadSave
 Hotkey HK_quickload, hotkeyQuickLoad 
 
-
-testHotKey(*)::{
+; debug purposes
+testHotKey(*){
   MsgBox("You pressed " A_ThisHotkey )
 }
 
-
-hotkeyRotate(*){
-  rotation_save()
+hotkeyQuickLoad(*){
+  ImportLastSave()
 }
+
+hotkeyLoadSave(*){
+  ImportSaveDir()
+}
+
 
  
 hotkeySave(*){
@@ -228,13 +251,7 @@ hotkeySave(*){
   }
 }
 
-Numpad7::{
-  ImportLastSave()
-}
 
-Numpad9::{
-  ImportSaveDir()
-}
 
 ;F6 to Reload the script.
 F6::{

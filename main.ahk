@@ -64,6 +64,11 @@ ReadHotkeys(){
   global HK_Save := IniRead(INI_FILENAME, "Default", "HK_Save", "Numpad0")
   global HK_loadSave := IniRead(INI_FILENAME, "Default", "HK_loadSave", "Numpad2")
   global HK_quickload := IniRead(INI_FILENAME, "Default", "HK_quickload", "Numpad5")
+
+
+  Sleep 5000
+  ToolTipMsg( Format("Hotkeys configured :`nSave : {1}`nload last save : {2}`nload a specific save : {3}", HK_Save, HK_quickload, HK_quickload), 0, 0, 10000)
+
   
 }
 
